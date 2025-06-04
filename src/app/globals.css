@@ -3,12 +3,13 @@
 :root {
   --background: #ffffff;
   --foreground: #171717;
+  --font-sf-pro: 'SF Pro Text', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
+  --font-sans: var(--font-sf-pro);
   --font-mono: var(--font-geist-mono);
 }
 
@@ -22,5 +23,16 @@
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-sf-pro);
+}
+
+/* Asegurar que Ant Design use SF Pro Text */
+.ant-typography,
+.ant-btn,
+.ant-input,
+.ant-table,
+.ant-pagination,
+.ant-dropdown-menu,
+.ant-badge {
+  font-family: var(--font-sf-pro) !important;
 }
