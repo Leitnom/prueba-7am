@@ -42,7 +42,7 @@ const useDebounce = (value: string, delay: number) => {
 export default function PageLaunch() {
     const [searchValue, setSearchValue] = useState('');
     const [currentPage, setCurrentPage] = useState(1);
-    const [pageSize] = useState(10);
+    const [pageSize] = useState(5);
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [form] = Form.useForm();
     const [loading, setLoading] = useState(false);
@@ -194,7 +194,6 @@ export default function PageLaunch() {
         }}>
             <div style={{ marginBottom: '32px' }}>
                 <Text style={{
-
                     fontSize: '14px',
                     lineHeight: '20px',
                     color: '#262626',
@@ -208,7 +207,6 @@ export default function PageLaunch() {
                 <Title
                     level={1}
                     style={{
-
                         fontWeight: 700,
                         fontSize: '32px',
                         lineHeight: '40px',
@@ -271,7 +269,6 @@ export default function PageLaunch() {
                                     <Text style={{
                                         fontSize: '16px',
                                         color: '#262626',
-
                                         fontWeight: 500,
                                         display: 'block',
                                         marginBottom: '8px'
@@ -281,7 +278,6 @@ export default function PageLaunch() {
                                     <Text style={{
                                         fontSize: '14px',
                                         color: '#9ca3af',
-
                                         fontWeight: 400
                                     }}>
                                         {searchValue ? 'Intenta con otros términos de búsqueda' : 'Comienza creando tu primera empresa'}
@@ -303,10 +299,13 @@ export default function PageLaunch() {
 
             {/* Pagination Section */}
             {total > pageSize && !companiesLoading && companies.length > 0 && (
-                <div style={{
-                    display: 'flex',
+                <div style={{ 
+                    display: 'flex', 
                     justifyContent: 'flex-end',
-                    marginTop: '32px'
+                    alignItems: 'center',
+                    marginTop: '24px',
+                    padding: '0 20px',
+                    width: '100%'
                 }}>
                     <Pagination
                         current={currentPage}
