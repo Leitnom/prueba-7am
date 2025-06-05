@@ -1,4 +1,4 @@
-import { Button, Modal, Form, Input, Typography, FormInstance, UploadProps } from "antd";
+import { Button, Modal, Form, Input, Typography, FormInstance, message, UploadProps } from "antd";
 import { CloseOutlined, InboxOutlined } from "@ant-design/icons";
 import Dragger from "antd/es/upload/Dragger";
 const { Title } = Typography;
@@ -9,10 +9,29 @@ interface CreateCompanyModalProps {
     handleModalOk: () => void;
     loading: boolean;
     form: FormInstance;
-    uploadProps: UploadProps;
 }
 
-export default function CreateCompanyModal({ isModalOpen, handleModalCancel, handleModalOk, form, uploadProps, loading }: CreateCompanyModalProps) {
+export default function CreateCompanyModal({ isModalOpen, handleModalCancel, handleModalOk, form, loading }: CreateCompanyModalProps) {
+
+    const uploadProps: UploadProps = {
+        name: 'file',
+        multiple: false,
+        accept: '.jpg,.jpeg,.png',
+        beforeUpload: (file) => {
+            const isJpgOrPng = file.type === 'image/jpeg' || file.type === 'image/png';
+            if (!isJpgOrPng) {
+                message.error('Solo puedes subir archivos JPG/PNG!');
+            }
+            const isLt2M = file.size / 1024 / 1024 < 2;
+            if (!isLt2M) {
+                message.error('La imagen debe ser menor a 2MB!');
+            }
+            return false;
+        },
+        onChange(info) {
+            console.log('Upload info:', info);
+        },
+    };
     return (
         <Modal
             title={
@@ -54,7 +73,7 @@ export default function CreateCompanyModal({ isModalOpen, handleModalCancel, han
                 gap: '24px',
                 minHeight: '512px'
             }}>
-                {/* Título del modal */}
+                {/* Title */}
                 <div style={{
                     display: 'flex',
                     flexDirection: 'column',
@@ -78,7 +97,7 @@ export default function CreateCompanyModal({ isModalOpen, handleModalCancel, han
                     </Title>
                 </div>
 
-                {/* Formulario */}
+                {/* Form */}
                 <Form
                     form={form}
                     layout="vertical"
@@ -90,7 +109,7 @@ export default function CreateCompanyModal({ isModalOpen, handleModalCancel, han
                         </>
                     )}
                 >
-                    {/* Campo Nombre */}
+                    {/* Name */}
                     <Form.Item
                         label="Nombre"
                         name="name"
@@ -109,7 +128,7 @@ export default function CreateCompanyModal({ isModalOpen, handleModalCancel, han
                         />
                     </Form.Item>
 
-                    {/* Campo Logo Completo */}
+                    {/* Full Logo */}
                     <Form.Item
                         label="Adjuntar logo completo"
                         name="fullLogo"
@@ -149,7 +168,7 @@ export default function CreateCompanyModal({ isModalOpen, handleModalCancel, han
                         </Dragger>
                     </Form.Item>
 
-                    {/* Campo Isotipo */}
+                    {/* Isotipo */}
                     <Form.Item
                         label="Adjuntar isotipo"
                         name="isotipo"
@@ -191,7 +210,7 @@ export default function CreateCompanyModal({ isModalOpen, handleModalCancel, han
                 </Form>
             </div>
 
-            {/* Footer del modal */}
+            {/* Footer */}
             <div style={{
                 display: 'flex',
                 justifyContent: 'flex-end',
