@@ -19,7 +19,7 @@ export default function CompanyHeader({ total, companiesLoading, onCreateCompany
                 fontSize: '16px',
                 lineHeight: '24px',
                 fontWeight: 600,
-                color: '#374151'
+                color: '#262626'
             }}>
                 {companiesLoading ? 'Cargando...' : `${total} empresa${total !== 1 ? 's' : ''}`}
             </Text>
